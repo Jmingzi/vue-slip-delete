@@ -1,0 +1,14 @@
+$border-color: #cecece;
+
+%bd-t {
+  background: linear-gradient($border-color, $border-color 100%, transparent 100%) top / 100% 1px no-repeat;
+}
+%bd-l {
+  background: linear-gradient($border-color, $border-color 100%, transparent 100%) left / 1px 100% no-repeat;
+}
+%bd-r {
+  background: linear-gradient($border-color, $border-color 100%, transparent 100%) right / 1px 100% no-repeat;
+}
+%bd-b {
+  background: linear-gradient($border-color, $border-color 100%, transparent 100%) bottom / 100% 1px no-repeat;
+}
