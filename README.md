@@ -6,7 +6,7 @@
 
 vue left slip，左滑删除组件
 
-# Usage
+# usage
 ```
 npm install vue-slip-delete --save
 ```
@@ -36,7 +36,11 @@ export default {
 threshold|Number|35|滑动的阀值
 del-cls|String|m-slide__del-red|删除按钮的类名 
 
-# Event
+# event
 名称|描述
 ----|----
 del-click|点击删除的回调
+
+# demo
+<img src="./src/assets/demo.png" width="300px">
+
