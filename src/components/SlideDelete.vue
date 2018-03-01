@@ -79,14 +79,17 @@
               return void 0
             }
 
-            diffX = diffX > 0 ? vm.delAreaWidth - diffX : diffX
             vm.setTransition(childSlideTop)
-            if (Math.abs(diffX) < vm.threshold) {
-              // 未超过阀值，重置
+            if (
+              diffX > 0 && diffX > vm.threshold ||
+              diffX < 0 && diffX > -vm.threshold
+            ) {
               vm.open = false
               vm.setTranslateX(childSlideTop, 0)
-            } else {
-              // 直接最大化
+            } else if (
+              diffX > 0 && diffX <= vm.threshold ||
+              diffX < 0 && diffX <= -vm.threshold
+            ) {
               vm.open = true
               vm.setTranslateX(childSlideTop, -vm.delAreaWidth)
             }

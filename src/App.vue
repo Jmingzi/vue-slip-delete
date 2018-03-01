@@ -12,7 +12,8 @@
 
 <script>
   import page from '../m-dist/mPage'
-  import SlideDel from '../m-dist/mSlideDelete'
+  // import SlideDel from '../m-dist/mSlideDelete'
+  import SlideDel from './components/SlideDelete'
 
   export default {
     name: 'app',
