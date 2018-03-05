@@ -62,7 +62,7 @@
             diffX = vm.getTouch(e).clientX - startX
 
             if (
-              // Math.abs(diffX) <= vm.delAreaWidth &&
+              Math.abs(diffX) <= vm.delAreaWidth &&
               (
                 diffX < 0 && !vm.open ||
                 diffX > 0 && vm.open
