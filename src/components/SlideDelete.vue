@@ -53,14 +53,16 @@
           let childSlideTop = el.childNodes[0]
 
           el.addEventListener('touchstart', (e)=> {
+            e.stopPropagation()
             startX = vm.getTouch(e).clientX
           })
 
           el.addEventListener('touchmove', (e)=> {
+            e.stopPropagation()
             diffX = vm.getTouch(e).clientX - startX
 
             if (
-              Math.abs(diffX) <= vm.delAreaWidth &&
+              // Math.abs(diffX) <= vm.delAreaWidth &&
               (
                 diffX < 0 && !vm.open ||
                 diffX > 0 && vm.open
@@ -74,10 +76,12 @@
           })
 
           el.addEventListener('touchend', (e)=> {
+            e.stopPropagation()
             diffX = vm.getTouch(e).clientX - startX
-            if (diffX > 0 && !vm.open) {
-              return void 0
-            }
+            // if (diffX > 0 && !vm.open) {
+            //   console.log('end not')
+            //   return void 0
+            // }
 
             vm.setTransition(childSlideTop)
             if (
