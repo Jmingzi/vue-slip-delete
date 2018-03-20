@@ -52,7 +52,8 @@ export default {
 </script>
 ```
 # feature
-- [x]  
+- [x] 滑动角度判断
+- [x] 滑动结束回调
 
 # props  
 名称|类型|默认值|描述
