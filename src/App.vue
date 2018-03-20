@@ -2,7 +2,12 @@
     <div id="app">
         <div class="wrapper" v-page="{ wrapperCls: 'wrapper-item', callback: getList }">
             <div class="wrapper-item">
-                <slide-del v-for="(item, i) in list" :key="i">
+                <slide-del
+                  v-for="(item, i) in list"
+                  :key="i"
+                  del-text="删除尼玛"
+                  @slip-open="slipOpen"
+                >
                     <div slot="item" class="demo-item">{{item.title}}</div>
                 </slide-del>
             </div>
@@ -40,6 +45,15 @@
         let res = this.mockData.slice(currIndex, currIndex + this.pageSize)
         this.list = this.list.concat(res)
         pageCb && pageCb(res)
+      },
+      slipOpen(target) {
+        // 收起其他的列表
+        Array.from(document.querySelectorAll('.m-slide__top')).filter(x => x.getAttribute('data-open')).forEach(item => {
+          if (item !== target) {
+            item.style.transform = 'translateX(0)'
+          }
+        })
+        target.setAttribute('data-open', 1)
       }
     },
     components: {

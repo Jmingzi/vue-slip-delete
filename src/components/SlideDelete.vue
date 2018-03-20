@@ -6,7 +6,7 @@
       </div>
       <div :class="`m-slide__del ${delCls}`" @click="$emit('del-click')">
         <span>
-          <slot name="del">删除</slot>
+          <slot name="del">{{ delText }}</slot>
         </span>
       </div>
     </div>
@@ -29,6 +29,10 @@
       delCls: {
         type: String,
         default: 'm-slide__del-red'
+      },
+      delText: {
+        type: String,
+        default: '删除'
       }
     },
 
@@ -40,28 +44,35 @@
         node.style.transform = `translateX(${num}px)`
       },
       setTransition(node, s = 0.3) {
-        // transition: transform .3s linear;
         node.style.transition = `transform ${s}s ease`
+      },
+      // 倾斜角度 向左小于45度时才认为是左滑操作
+      // 也就是y < x
+      isAngleLeft(y, x) {
+        return Math.abs(y) < Math.abs(x)
       }
     },
 
     directives: {
       slide: {
         bind(el, binding, vNode) {
-          let startX, diffX
+          let startX, startY, diffX, diffY
           let vm = vNode.context
           let childSlideTop = el.childNodes[0]
 
           el.addEventListener('touchstart', (e)=> {
             e.stopPropagation()
             startX = vm.getTouch(e).clientX
+            startY = vm.getTouch(e).clientY
           })
 
           el.addEventListener('touchmove', (e)=> {
             e.stopPropagation()
             diffX = vm.getTouch(e).clientX - startX
+            diffY = vm.getTouch(e).clientY - startY
 
             if (
+              vm.isAngleLeft(diffY, diffX) &&
               Math.abs(diffX) <= vm.delAreaWidth &&
               (
                 diffX < 0 && !vm.open ||
@@ -78,10 +89,7 @@
           el.addEventListener('touchend', (e)=> {
             e.stopPropagation()
             diffX = vm.getTouch(e).clientX - startX
-            // if (diffX > 0 && !vm.open) {
-            //   console.log('end not')
-            //   return void 0
-            // }
+            diffY = vm.getTouch(e).clientY - startY
 
             vm.setTransition(childSlideTop)
             if (
@@ -91,11 +99,15 @@
               vm.open = false
               vm.setTranslateX(childSlideTop, 0)
             } else if (
-              diffX > 0 && diffX <= vm.threshold ||
-              diffX < 0 && diffX <= -vm.threshold
+              vm.isAngleLeft(diffY, diffX) &&
+              (
+                diffX > 0 && diffX <= vm.threshold ||
+                diffX < 0 && diffX <= -vm.threshold
+              )
             ) {
               vm.open = true
               vm.setTranslateX(childSlideTop, -vm.delAreaWidth)
+              vm.$emit('slip-open', childSlideTop)
             }
           })
         }
@@ -129,6 +141,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        text-align: center;
       }
     }
 
