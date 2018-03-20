@@ -119,7 +119,7 @@
               )
             ) {
               vm.open = true
-              // vm.setTranslateX(childSlideTop, -vm.delAreaWidth)
+              vm.setTranslateX(childSlideTop, -vm.delAreaWidth)
               vm.$emit('slip-open', childSlideTop)
             }
           })
