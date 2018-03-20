@@ -1,6 +1,6 @@
 <template>
     <div class="m-slide" v-slide="">
-      <div class="m-slide__top">
+      <div class="m-slide__top" ref="slideItem">
         <slot name="item">
         </slot>
       </div>
@@ -19,6 +19,12 @@
       return {
         delAreaWidth: 70,
         open: false
+      }
+    },
+    watch: {
+      open: function (val) {
+        this.setTranslateX(this.$refs.slideItem, val ? -this.delAreaWidth : 0)
+        return val
       }
     },
     props: {
@@ -41,15 +47,22 @@
         return touch.changedTouches[0] || touch.targetTouches[0]
       },
       setTranslateX(node, num) {
-        node.style.transform = `translateX(${num}px)`
+        if (node) {
+          node.style.transform = `translateX(${num}px)`
+        }
       },
       setTransition(node, s = 0.3) {
-        node.style.transition = `transform ${s}s ease`
+        if (node) {
+          node.style.transition = `transform ${s}s ease`
+        }
       },
       // 倾斜角度 向左小于45度时才认为是左滑操作
       // 也就是y < x
       isAngleLeft(y, x) {
         return Math.abs(y) < Math.abs(x)
+      },
+      setOpen(type = false) {
+        this.open = type
       }
     },
 
@@ -106,7 +119,7 @@
               )
             ) {
               vm.open = true
-              vm.setTranslateX(childSlideTop, -vm.delAreaWidth)
+              // vm.setTranslateX(childSlideTop, -vm.delAreaWidth)
               vm.$emit('slip-open', childSlideTop)
             }
           })

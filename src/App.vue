@@ -5,6 +5,7 @@
                 <slide-del
                   v-for="(item, i) in list"
                   :key="i"
+                  ref="slipDel"
                   del-text="删除尼玛"
                   @slip-open="slipOpen"
                 >
@@ -47,13 +48,11 @@
         pageCb && pageCb(res)
       },
       slipOpen(target) {
-        // 收起其他的列表
-        Array.from(document.querySelectorAll('.m-slide__top')).filter(x => x.getAttribute('data-open')).forEach(item => {
-          if (item !== target) {
-            item.style.transform = 'translateX(0)'
+        this.$refs.slipDel.forEach(item => {
+          if (item.$el !== target.parentNode) {
+            item.setOpen(false)
           }
         })
-        target.setAttribute('data-open', 1)
       }
     },
     components: {

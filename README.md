@@ -16,6 +16,7 @@ npm install vue-slip-delete --save
   <slip-del
     v-for="(item, i) in list"
     :key="i"
+    ref="slipDel"
     del-text="删除商品"
     @slip-open="slipOpen"
     @del-click="del"
@@ -30,16 +31,12 @@ import SlipDel from 'vue-slip-delete'
 export default {
   methods: {
     slipOpen(target) {
-      // 只允许打开一个左滑删除
-      // 收起其他的列表
-      Array.from(document.querySelectorAll('.m-slide__top'))
-      .filter(x => x.getAttribute('data-open'))
-      .forEach(item => {
-        if (item !== target) {
-          item.style.transform = 'translateX(0)'
+      // 滑开一个删除，其他删除都关闭
+      this.$refs.slipDel.forEach(item => {
+        if (item.$el !== target.parentNode) {
+          item.setOpen(false)
         }
       })
-      target.setAttribute('data-open', 1)
     },
     del() {
       // 删除回调
