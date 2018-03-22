@@ -1,16 +1,21 @@
 {
     "name": "vue-slip-delete",
-    "version": "1.0.11",
-    "description": "A Vue.js project",
+    "version": "1.0.13",
+    "description": "vue left slip，左滑删除组件",
     "author": "yangming <472102644@qq.com>",
     "private": false,
-    "scripts": {
+  "scripts": {
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
         "start": "npm run dev",
         "build": "node build/build.js"
     },
+  "files": [
+    "src",
+    "m-dist"
+  ],
     "main": "./m-dist/mSlideDelete.js",
-    "dependencies": {
+  "unpkg": "./m-dist/mSlideDelete.js",
+  "dependencies": {
         "vue": "^2.5.2"
     },
     "devDependencies": {

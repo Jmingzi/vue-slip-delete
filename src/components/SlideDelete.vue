@@ -49,11 +49,15 @@
       setTranslateX(node, num) {
         if (node) {
           node.style.transform = `translateX(${num}px)`
+          node.style.WebkitTransform = `translateX(${num}px)`
+          node.style.msTransform = `translateX(${num}px)`
         }
       },
       setTransition(node, s = 0.3) {
         if (node) {
           node.style.transition = `transform ${s}s ease`
+          node.style.WebkitTransition = `transform ${s}s ease`
+          node.style.msTransition = `transform ${s}s ease`
         }
       },
       // 倾斜角度 向左小于45度时才认为是左滑操作

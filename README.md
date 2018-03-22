@@ -65,6 +65,11 @@ del-text|String|删除|删除文案
 del-click|点击删除的回调
 slip-open|滑动打开后的回调
 
+# method
+名称|描述
+----|----
+setOpen|打开或关闭 删除
+
 # demo
 
 <img src="./src/assets/demo.png" width="300px">

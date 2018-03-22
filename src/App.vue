@@ -25,7 +25,7 @@
     name: 'app',
     data() {
       return {
-        mockData: null,
+        mockData: [],
         list: [],
       }
     },
@@ -34,9 +34,12 @@
       // this.$box.alert('呵呵').then(()=> {
       //   this.$box.confirm('heheheh')
       // })
-      this.mockData = new Array(100).fill(1).map((item, i)=> {
-        return { title: i + ' this is a simple question' }
-      })
+      // this.mockData = new Array(100).fill(1).map((item, i)=> {
+      //   return { title: i + ' this is a simple question' }
+      // })
+      for (let i = 0; i < 100; i++) {
+        this.mockData.push({ title: i + 1 + ' this is a simple question' })
+      }
       this.getList()
     },
     methods: {
