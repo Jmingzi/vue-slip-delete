@@ -58,6 +58,7 @@ export default {
 threshold|Number|35|滑动的阀值
 del-cls|String|m-slide__del-red|删除按钮的类名
 del-text|String|删除|删除文案 
+angle-point|Number|0.4|滑动时角度控制是否preventDefault
 
 # event
 名称|描述

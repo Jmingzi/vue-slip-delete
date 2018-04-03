@@ -1,6 +1,6 @@
 {
     "name": "vue-slip-delete",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "description": "vue left slip，左滑删除组件",
     "author": "yangming <472102644@qq.com>",
     "private": false,

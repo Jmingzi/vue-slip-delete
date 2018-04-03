@@ -39,6 +39,10 @@
       delText: {
         type: String,
         default: '删除'
+      },
+      anglePoint: {
+        type: Number,
+        default: 0.4
       }
     },
 
@@ -87,6 +91,8 @@
             e.stopPropagation()
             diffX = vm.getTouch(e).clientX - startX
             diffY = vm.getTouch(e).clientY - startY
+            const isSwipeLeft = diffY / diffX > vm.anglePoint
+            isSwipeLeft && e.preventDefault()
 
             if (
               vm.isAngleLeft(diffY, diffX) &&
