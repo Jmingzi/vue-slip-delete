@@ -6,6 +6,10 @@
 
 vue left slip，左滑删除组件
 
+# demo
+
+<img src="./src/assets/demo.gif" width="300px">
+
 # usage
 ```
 npm install vue-slip-delete --save
@@ -65,7 +69,5 @@ slip-open|滑动打开后的回调
 ----|----
 setOpen|手动打开或关闭 删除
 
-# demo
 
-<img src="./src/assets/demo.png" width="300px">
 
