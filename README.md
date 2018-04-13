@@ -6,7 +6,7 @@
 
 vue left slip，左滑删除组件
 
-> 如果该轮子确实帮助到了你，请star :star: 谢谢。
+> 持续维护中，如果该轮子确实帮助到了你，请:star: star :star: 谢谢。
 
 # demo
 
