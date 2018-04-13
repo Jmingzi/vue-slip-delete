@@ -6,7 +6,7 @@
                   v-for="(item, i) in list"
                   :key="i"
                   ref="slipDel"
-                  del-text="删除尼玛"
+                  del-text="删除商品"
                   @slip-open="slipOpen"
                 >
                     <div slot="item" class="demo-item">{{item.title}}</div>
