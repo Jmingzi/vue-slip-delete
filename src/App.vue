@@ -50,12 +50,7 @@
         this.list = this.list.concat(res)
         pageCb && pageCb(res)
       },
-      slipOpen(target) {
-        this.$refs.slipDel.forEach(item => {
-          if (item.$el !== target.parentNode) {
-            item.setOpen(false)
-          }
-        })
+      slipOpen(vm) {
       }
     },
     components: {

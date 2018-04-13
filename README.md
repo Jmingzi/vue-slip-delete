@@ -30,13 +30,8 @@ import SlipDel from 'vue-slip-delete'
 
 export default {
   methods: {
-    slipOpen(target) {
-      // 滑开一个删除，其他删除都关闭
-      this.$refs.slipDel.forEach(item => {
-        if (item.$el !== target.parentNode) {
-          item.setOpen(false)
-        }
-      })
+    slipOpen(vm) {
+      // 无需手动关闭
     },
     del() {
       // 删除回调
@@ -58,7 +53,6 @@ export default {
 threshold|Number|35|滑动的阀值
 del-cls|String|m-slide__del-red|删除按钮的类名
 del-text|String|删除|删除文案 
-angle-point|Number|0.4|滑动时角度控制是否preventDefault
 
 # event
 名称|描述
@@ -69,7 +63,7 @@ slip-open|滑动打开后的回调
 # method
 名称|描述
 ----|----
-setOpen|打开或关闭 删除
+setOpen|手动打开或关闭 删除
 
 # demo
 

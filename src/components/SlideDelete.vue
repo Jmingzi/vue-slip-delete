@@ -1,6 +1,6 @@
 <template>
-    <div class="m-slide" v-slide="">
-      <div class="m-slide__top" ref="slideItem">
+    <div :class="componentName" v-slide="">
+      <div class="m-slide__top" ref="slideItem" :style="wrapperStyle">
         <slot name="item">
         </slot>
       </div>
@@ -13,20 +13,30 @@
 </template>
 
 <script>
+  const COMPONENT_NAME = 'm-slide'
+
   export default {
-    name: 'm-slide',
+    name: COMPONENT_NAME,
+
+    computed: {
+      wrapperStyle() {
+        return {
+          transform: `translate3d(${this.offset}px, 0, 0)`,
+          transition: this.draging ? 'none' : '.6s cubic-bezier(0.18, 0.89, 0.32, 1)'
+        }
+      }
+    },
+
     data() {
       return {
         delAreaWidth: 70,
-        open: false
+        open: false,
+        offset: 0,
+        draging: false,
+        componentName: COMPONENT_NAME
       }
     },
-    watch: {
-      open: function (val) {
-        this.setTranslateX(this.$refs.slideItem, val ? -this.delAreaWidth : 0)
-        return val
-      }
-    },
+
     props: {
       threshold: {
         type: Number,
@@ -39,10 +49,6 @@
       delText: {
         type: String,
         default: '删除'
-      },
-      anglePoint: {
-        type: Number,
-        default: 0.4
       }
     },
 
@@ -50,27 +56,28 @@
       getTouch(touch) {
         return touch.changedTouches[0] || touch.targetTouches[0]
       },
-      setTranslateX(node, num) {
-        if (node) {
-          node.style.transform = `translateX(${num}px)`
-          node.style.WebkitTransform = `translateX(${num}px)`
-          node.style.msTransform = `translateX(${num}px)`
-        }
+
+      isAngleLeft(diffX, diffY) {
+        const x = Math.abs(diffX)
+        const y = Math.abs(diffY)
+        return !(x < 5 || (x >= 5 && y >= x * 1.73))
       },
-      setTransition(node, s = 0.3) {
-        if (node) {
-          node.style.transition = `transform ${s}s ease`
-          node.style.WebkitTransition = `transform ${s}s ease`
-          node.style.msTransition = `transform ${s}s ease`
-        }
-      },
-      // 倾斜角度 向左小于45度时才认为是左滑操作
-      // 也就是y < x
-      isAngleLeft(y, x) {
-        return Math.abs(y) < Math.abs(x)
-      },
+
       setOpen(type = false) {
         this.open = type
+        this.offset = type ? -this.delAreaWidth : 0
+      },
+
+      closeOther() {
+        this.$parent.$children
+          .filter(vNode =>
+            vNode.$el.classList.contains(this.componentName) &&
+            vNode.open &&
+            vNode !== this
+          )
+          .forEach(vNode => {
+            vNode.setOpen(false)
+          })
       }
     },
 
@@ -79,58 +86,55 @@
         bind(el, binding, vNode) {
           let startX, startY, diffX, diffY
           let vm = vNode.context
-          let childSlideTop = el.childNodes[0]
 
           el.addEventListener('touchstart', (e)=> {
-            e.stopPropagation()
-            startX = vm.getTouch(e).clientX
-            startY = vm.getTouch(e).clientY
+            const { clientX, clientY } = vm.getTouch(e)
+            startX = clientX
+            startY = clientY
+            vm.draging = true
           })
 
           el.addEventListener('touchmove', (e)=> {
-            e.stopPropagation()
-            diffX = vm.getTouch(e).clientX - startX
-            diffY = vm.getTouch(e).clientY - startY
-            const isSwipeLeft = diffY / diffX > vm.anglePoint
-            isSwipeLeft && e.preventDefault()
+            const { clientX, clientY } = vm.getTouch(e)
+            diffX = clientX - startX
+            diffY = clientY - startY
 
             if (
-              vm.isAngleLeft(diffY, diffX) &&
+              vm.isAngleLeft(diffX, diffY) &&
               Math.abs(diffX) <= vm.delAreaWidth &&
               (
                 diffX < 0 && !vm.open ||
                 diffX > 0 && vm.open
               )
             ) {
-              // 左滑时，没有打开
-              // 右滑时，已打开
-              vm.setTransition(childSlideTop, 0)
-              vm.setTranslateX(childSlideTop, vm.open ? diffX - vm.delAreaWidth : diffX)
+              event.preventDefault()
+              vm.offset = vm.open ? diffX - vm.delAreaWidth : diffX
             }
           })
 
           el.addEventListener('touchend', (e)=> {
-            e.stopPropagation()
-            diffX = vm.getTouch(e).clientX - startX
-            diffY = vm.getTouch(e).clientY - startY
+            const { clientX, clientY } = vm.getTouch(e)
+            diffX = clientX - startX
+            diffY = clientY - startY
+            vm.draging = false
 
-            vm.setTransition(childSlideTop)
             if (
               diffX > 0 && diffX > vm.threshold ||
               diffX < 0 && diffX > -vm.threshold
             ) {
               vm.open = false
-              vm.setTranslateX(childSlideTop, 0)
+              vm.offset = 0
             } else if (
-              vm.isAngleLeft(diffY, diffX) &&
+              vm.isAngleLeft(diffX, diffY) &&
               (
                 diffX > 0 && diffX <= vm.threshold ||
                 diffX < 0 && diffX <= -vm.threshold
               )
             ) {
               vm.open = true
-              vm.setTranslateX(childSlideTop, -vm.delAreaWidth)
-              vm.$emit('slip-open', childSlideTop)
+              vm.offset = -vm.delAreaWidth
+              vm.closeOther.call(vm, el)
+              vm.$emit('slip-open', vm)
             }
           })
         }
