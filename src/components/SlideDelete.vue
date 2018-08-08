@@ -1,13 +1,12 @@
 <template>
     <div :class="componentName" v-slide="">
       <div class="m-slide__top" ref="slideItem" :style="wrapperStyle">
-        <slot name="item">
-        </slot>
+        <slot name="item" v-if="$slots.item" />
+        <slot v-else />
       </div>
       <div :class="`m-slide__del ${delCls}`" @click="$emit('del-click')">
-        <span>
-          <slot name="del">{{ delText }}</slot>
-        </span>
+        <slot name="del" v-if="$slots.del" />
+        <span v-else>{{ delText }}</span>
       </div>
     </div>
 </template>

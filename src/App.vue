@@ -9,7 +9,8 @@
                   del-text="删除商品"
                   @slip-open="slipOpen"
                 >
-                    <div slot="item" class="demo-item">{{item.title}}</div>
+                  <div class="demo-item">{{item.title}}</div>
+                  <div slot="del">删除icon可编辑</div>
                 </slide-del>
             </div>
         </div>
@@ -18,8 +19,8 @@
 
 <script>
   import page from '../m-dist/mPage'
-  // import SlideDel from '../m-dist/mSlideDelete'
-  import SlideDel from './components/SlideDelete'
+  import SlideDel from '../m-dist/mSlideDelete'
+  // import SlideDel from './components/SlideDelete'
 
   export default {
     name: 'app',
