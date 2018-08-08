@@ -28,6 +28,7 @@ npm install vue-slip-delete --save
     @del-click="del"
   >
     <div class="demo-item">delete item</div>
+    <div slot="del">删除icon可编辑</div>
   </slip-del>
 </template>
 
