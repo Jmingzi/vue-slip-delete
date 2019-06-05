@@ -6,7 +6,7 @@
 
 vue left slip，左滑删除组件
 
-> 持续维护中，如果该轮子确实帮助到了你，请:star: star :star: 谢谢。
+**组件迁移至 [Esc-ui](https://competent-bose-f6b47c.netlify.com/#/slide-delete) ，升级为ts写法。**
 
 # demo
 
