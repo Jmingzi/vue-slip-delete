@@ -6,7 +6,7 @@
 
 vue left slip，左滑删除组件
 
-**组件迁移至 [Esc-ui](https://competent-bose-f6b47c.netlify.com/#/slide-delete) ，升级为ts写法。**
+## 组件迁移至 [Esc-ui](https://competent-bose-f6b47c.netlify.com/#/slide-delete) ，升级为ts写法，按需引入，demo演示。
 
 # demo
 
