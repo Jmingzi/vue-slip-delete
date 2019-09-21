@@ -10,7 +10,7 @@ vue left slip，左滑删除组件
 
 # demo
 
-<img src="./src/assets/demo.gif" width="300px">
+<img src="./src/assets/demo1.gif" width="300px">
 
 # usage
 ```
