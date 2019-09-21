@@ -55,18 +55,18 @@ export default {
 - [x] 滑动结束回调
 - [x] 低版本兼容
 
-# props
+# data
 名称|类型|默认值|描述
 ----|----|----|----
 threshold|Number|35|滑动的阀值
-del-cls|String|m-slide__del-red|删除按钮的类名
-del-text|String|删除|删除文案
+delAreaWidth |Number|70|滑块展开宽度
 
 # event
 名称|描述
 ----|----
 del-click|点击删除的回调
 slip-open|滑动打开后的回调
+slip-close|滑动关闭后的回调
 
 # method
 名称|描述
