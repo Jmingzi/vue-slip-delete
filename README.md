@@ -10,7 +10,7 @@ vue left slip，左滑删除组件
 
 # demo
 
-<img src="./src/assets/demo.gif" width="300px">
+<img src="./src/assets/demo1.gif" width="300px">
 
 # usage
 ```
@@ -23,12 +23,12 @@ npm install vue-slip-delete --save
     v-for="(item, i) in list"
     :key="i"
     ref="slipDel"
-    del-text="删除商品"
-    @slip-open="slipOpen"
-    @del-click="del"
+    @slip-open="slipOpen(index)"
+    @slip-close="slipClose(index)"
+    @del-click="delFn(index)"
   >
     <div class="demo-item">delete item</div>
-    <div slot="del">删除icon可编辑</div>
+    <div slot="del">删除</div>
   </slip-del>
 </template>
 
@@ -55,18 +55,18 @@ export default {
 - [x] 滑动结束回调
 - [x] 低版本兼容
 
-# props
+# data
 名称|类型|默认值|描述
 ----|----|----|----
 threshold|Number|35|滑动的阀值
-del-cls|String|m-slide__del-red|删除按钮的类名
-del-text|String|删除|删除文案
+delAreaWidth |Number|70|滑块展开宽度
 
 # event
 名称|描述
 ----|----
 del-click|点击删除的回调
 slip-open|滑动打开后的回调
+slip-close|滑动关闭后的回调
 
 # method
 名称|描述
