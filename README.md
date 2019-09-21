@@ -23,12 +23,12 @@ npm install vue-slip-delete --save
     v-for="(item, i) in list"
     :key="i"
     ref="slipDel"
-    del-text="删除商品"
-    @slip-open="slipOpen"
-    @del-click="del"
+    @slip-open="slipOpen(index)"
+    @slip-close="slipClose(index)"
+    @del-click="delFn(index)"
   >
     <div class="demo-item">delete item</div>
-    <div slot="del">删除icon可编辑</div>
+    <div slot="del">删除</div>
   </slip-del>
 </template>
 
